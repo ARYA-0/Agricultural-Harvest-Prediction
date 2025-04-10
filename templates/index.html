@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AGRO-connect_Crop Yield Prediction</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        /* Background Image */
+        body {
+            background: url('https://premierag.com/wp-content/uploads/2024/04/Farming-Terms-Glossary-1200x675.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            animation: fadeIn 1s ease-in-out;
+            position: relative;
+        }
+
+        /* Overlay to Darken Background for Readability */
+        body::before {
+            content: none; /* Removes the dark overlay */
+        }
+
+        /* Smooth Fade-in Effect */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .container {
+            max-width: 700px;
+            margin-top: 50px;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        /* Card Styling */
+        .card {
+            background: rgba(0, 0, 0, 0.85);
+            border-radius: 15px;
+            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            color: white; /* Ensuring all text inside the card is white */
+        }
+
+        /* Input Field Styling */
+        .form-control {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .form-control:focus {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: cyan;
+            box-shadow: 0px 0px 8px rgba(0, 255, 255, 0.5);
+        }
+
+        /* Labels & Headings */
+        .form-label, h1, h2, h3 {
+            color: white !important; /* Ensuring all labels and headings are white */
+        }
+
+        /* Glowing Predict Button */
+        .btn-predict {
+            background: linear-gradient(45deg, #ff416c, #ff4b2b);
+            border: none;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 12px;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0px 0px 10px rgba(255, 75, 43, 0.5);
+            color: white;
+        }
+
+        .btn-predict:hover {
+            background: linear-gradient(45deg, #ff4b2b, #ff416c);
+            transform: scale(1.05);
+            box-shadow: 0px 0px 20px rgba(255, 75, 43, 0.8);
+            color: white;
+        }
+
+        /* Prediction Result Styling */
+        .prediction-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 255, 255, 0.3);
+            text-align: center;
+            margin-top: 20px;
+            animation: fadeIn 1.5s ease-in-out;
+            color: white;
+        }
+
+        .prediction-text {
+            font-size: 24px;
+            font-weight: bold;
+            color: cyan;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="text-center">🌾 Crop Yield Prediction</h1>
+        <div class="card">
+            <div class="card-body">
+                <h2 class="text-center mb-4">📊 Enter Details Below</h2>
+
+                <form action="/predict" method="post">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label for="Year" class="form-label">📅 Year</label>
+                            <input type="number" class="form-control" name="Year" value="2013">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="average_rain_fall_mm_per_year" class="form-label">🌧 Average Rainfall (mm/year)</label>
+                            <input type="number" class="form-control" name="average_rain_fall_mm_per_year">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="pesticides_tonnes" class="form-label">🧪 Pesticides (tonnes)</label>
+                            <input type="number" class="form-control" name="pesticides_tonnes">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="avg_temp" class="form-label">🌡 Average Temperature (°C)</label>
+                            <input type="number" class="form-control" name="avg_temp">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="Area" class="form-label">🌍 Area</label>
+                            <input type="text" class="form-control" name="Area">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="Item" class="form-label">🌾 Crop Type</label>
+                            <input type="text" class="form-control" name="Item">
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-predict btn-lg mt-4 w-100">🚀 Predict</button>
+                        </div>
+                    </div>
+                </form>
+
+                {% if prediction %}
+                    <div class="prediction-box mt-4">
+                        <h2>🔮 Predicted Yield:</h2>
+                        <h3 class="prediction-text">{{ prediction }}</h3>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+</body>
+</html>
