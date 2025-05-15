@@ -3,25 +3,22 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AGRO-connect_Crop Yield Prediction</title>
+    <title>Agricultural Harvest Prediction</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
-        /* Background Image */
         body {
-            background: url('https://premierag.com/wp-content/uploads/2024/04/Farming-Terms-Glossary-1200x675.jpg') no-repeat center center fixed;
+            background: url('https://www.epicgardening.com/wp-content/uploads/2024/10/farmer-holding-wheat-seeds.jpg') no-repeat center center fixed;
             background-size: cover;
             color: white;
             animation: fadeIn 1s ease-in-out;
             position: relative;
         }
 
-        /* Overlay to Darken Background for Readability */
         body::before {
-            content: none; /* Removes the dark overlay */
+            content: none;
         }
 
-        /* Smooth Fade-in Effect */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -33,16 +30,14 @@
             animation: fadeIn 1.5s ease-in-out;
         }
 
-        /* Card Styling */
         .card {
             background: rgba(0, 0, 0, 0.85);
             border-radius: 15px;
             box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.1);
             padding: 30px;
-            color: white; /* Ensuring all text inside the card is white */
+            color: white;
         }
 
-        /* Input Field Styling */
         .form-control {
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.3);
@@ -60,12 +55,10 @@
             box-shadow: 0px 0px 8px rgba(0, 255, 255, 0.5);
         }
 
-        /* Labels & Headings */
         .form-label, h1, h2, h3 {
-            color: white !important; /* Ensuring all labels and headings are white */
+            color: white !important;
         }
 
-        /* Glowing Predict Button */
         .btn-predict {
             background: linear-gradient(45deg, #ff416c, #ff4b2b);
             border: none;
@@ -84,7 +77,6 @@
             color: white;
         }
 
-        /* Prediction Result Styling */
         .prediction-box {
             background: rgba(255, 255, 255, 0.1);
             padding: 20px;
@@ -101,12 +93,33 @@
             font-weight: bold;
             color: cyan;
         }
+
+        .profit-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 255, 0, 0.3);
+            text-align: center;
+            margin-top: 20px;
+            animation: fadeIn 1.5s ease-in-out;
+            color: white;
+        }
+
+        .profit-text {
+            font-size: 24px;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1 class="text-center">🌾 Crop Yield Prediction</h1>
+        <h1 class="text-center">🌾 Agricultural Harvest Prediction 🌾</h1>
         <div class="card">
             <div class="card-body">
                 <h2 class="text-center mb-4">📊 Enter Details Below</h2>
@@ -115,30 +128,247 @@
                     <div class="row g-3">
                         <div class="col-md-6">
                             <label for="Year" class="form-label">📅 Year</label>
-                            <input type="number" class="form-control" name="Year" value="2013">
+                            <input list="yearOptions" class="form-control" name="Year" id="Year" value="2013">
+                            <datalist id="yearOptions">
+                                {% for y in range(1990, 2101) %}
+                                    <option value="{{ y }}">
+                                {% endfor %}
+                            </datalist>
                         </div>
+                                             
+                        
                         <div class="col-md-6">
                             <label for="average_rain_fall_mm_per_year" class="form-label">🌧 Average Rainfall (mm/year)</label>
-                            <input type="number" class="form-control" name="average_rain_fall_mm_per_year">
+                            <input list="rainfallOptions" class="form-control" name="average_rain_fall_mm_per_year" id="average_rain_fall_mm_per_year">
+                            <datalist id="rainfallOptions">
+                                {% for r in range(200, 3001, 100) %}
+                                    <option value="{{ r }}">
+                                {% endfor %}
+                            </datalist>
                         </div>
+                        
                         <div class="col-md-6">
                             <label for="pesticides_tonnes" class="form-label">🧪 Pesticides (tonnes)</label>
-                            <input type="number" class="form-control" name="pesticides_tonnes">
+                            <input list="pesticideOptions" class="form-control" name="pesticides_tonnes" id="pesticides_tonnes">
+                            <datalist id="pesticideOptions">
+                                {% for p in range(0, 10001, 500) %}
+                                    <option value="{{ p }}">
+                                {% endfor %}
+                            </datalist>
                         </div>
+                        
                         <div class="col-md-6">
                             <label for="avg_temp" class="form-label">🌡 Average Temperature (°C)</label>
-                            <input type="number" class="form-control" name="avg_temp">
+                            <input list="tempOptions" class="form-control" name="avg_temp" id="avg_temp">
+                            <datalist id="tempOptions">
+                                {% for t in range(10, 51) %}
+                                    <option value="{{ t }}">
+                                {% endfor %}
+                            </datalist>
                         </div>
+                        
                         <div class="col-md-6">
                             <label for="Area" class="form-label">🌍 Area</label>
-                            <input type="text" class="form-control" name="Area">
+                            <input list="areaOptions" class="form-control" name="Area" id="Area">
+                            <datalist id="areaOptions">
+                                <option value="Albania">
+                                <option value="Algeria">
+                                <option value="Angola">
+                                <option value="Argentina">
+                                <option value="Armenia">
+                                <option value="Australia">
+                                <option value="Austria">
+                                <option value="Azerbaijan">
+                                <option value="Bahamas">
+                                <option value="Bahrain">
+                                <option value="Bangladesh">
+                                <option value="Belarus">
+                                <option value="Belgium">
+                                <option value="Botswana">
+                                <option value="Brazil">
+                                <option value="Bulgaria">
+                                <option value="Burkina Faso">
+                                <option value="Burundi">
+                                <option value="Cameroon">
+                                <option value="Canada">
+                                <option value="Central African Republic">
+                                <option value="Chad">
+                                <option value="Chile">
+                                <option value="China">
+                                <option value="Colombia">
+                                <option value="Comoros">
+                                <option value="Congo">
+                                <option value="Costa Rica">
+                                <option value="Croatia">
+                                <option value="Cuba">
+                                <option value="Cyprus">
+                                <option value="Czechia">
+                                <option value="Denmark">
+                                <option value="Djibouti">
+                                <option value="Dominican Republic">
+                                <option value="Ecuador">
+                                <option value="Egypt">
+                                <option value="El Salvador">
+                                <option value="Estonia">
+                                <option value="Eswatini">
+                                <option value="Ethiopia">
+                                <option value="Fiji">
+                                <option value="Finland">
+                                <option value="France">
+                                <option value="Gabon">
+                                <option value="Gambia">
+                                <option value="Georgia">
+                                <option value="Germany">
+                                <option value="Ghana">
+                                <option value="Greece">
+                                <option value="Guatemala">
+                                <option value="Guinea">
+                                <option value="Guinea-Bissau">
+                                <option value="Guyana">
+                                <option value="Haiti">
+                                <option value="Honduras">
+                                <option value="Hungary">
+                                <option value="Iceland">
+                                <option value="India">
+                                <option value="Indonesia">
+                                <option value="Iran">
+                                <option value="Iraq">
+                                <option value="Ireland">
+                                <option value="Israel">
+                                <option value="Italy">
+                                <option value="Jamaica">
+                                <option value="Japan">
+                                <option value="Jordan">
+                                <option value="Kazakhstan">
+                                <option value="Kenya">
+                                <option value="Kuwait">
+                                <option value="Kyrgyzstan">
+                                <option value="Lao People's Democratic Republic">
+                                <option value="Latvia">
+                                <option value="Lebanon">
+                                <option value="Lesotho">
+                                <option value="Liberia">
+                                <option value="Libya">
+                                <option value="Lithuania">
+                                <option value="Luxembourg">
+                                <option value="Madagascar">
+                                <option value="Malawi">
+                                <option value="Malaysia">
+                                <option value="Maldives">
+                                <option value="Mali">
+                                <option value="Malta">
+                                <option value="Mauritania">
+                                <option value="Mauritius">
+                                <option value="Mexico">
+                                <option value="Mongolia">
+                                <option value="Montenegro">
+                                <option value="Morocco">
+                                <option value="Mozambique">
+                                <option value="Myanmar">
+                                <option value="Namibia">
+                                <option value="Nepal">
+                                <option value="Netherlands">
+                                <option value="New Zealand">
+                                <option value="Nicaragua">
+                                <option value="Niger">
+                                <option value="Nigeria">
+                                <option value="North Macedonia">
+                                <option value="Norway">
+                                <option value="Oman">
+                                <option value="Pakistan">
+                                <option value="Panama">
+                                <option value="Papua New Guinea">
+                                <option value="Paraguay">
+                                <option value="Peru">
+                                <option value="Philippines">
+                                <option value="Poland">
+                                <option value="Portugal">
+                                <option value="Qatar">
+                                <option value="Republic of Korea">
+                                <option value="Republic of Moldova">
+                                <option value="Romania">
+                                <option value="Russian Federation">
+                                <option value="Rwanda">
+                                <option value="Saint Lucia">
+                                <option value="Samoa">
+                                <option value="Saudi Arabia">
+                                <option value="Senegal">
+                                <option value="Serbia">
+                                <option value="Seychelles">
+                                <option value="Sierra Leone">
+                                <option value="Singapore">
+                                <option value="Slovakia">
+                                <option value="Slovenia">
+                                <option value="Solomon Islands">
+                                <option value="Somalia">
+                                <option value="South Africa">
+                                <option value="South Sudan">
+                                <option value="Spain">
+                                <option value="Sri Lanka">
+                                <option value="Sudan">
+                                <option value="Suriname">
+                                <option value="Sweden">
+                                <option value="Switzerland">
+                                <option value="Syrian Arab Republic">
+                                <option value="Tajikistan">
+                                <option value="Thailand">
+                                <option value="Timor-Leste">
+                                <option value="Togo">
+                                <option value="Trinidad and Tobago">
+                                <option value="Tunisia">
+                                <option value="Turkey">
+                                <option value="Turkmenistan">
+                                <option value="Uganda">
+                                <option value="Ukraine">
+                                <option value="United Arab Emirates">
+                                <option value="United Kingdom of Great Britain and Northern Ireland">
+                                <option value="United Republic of Tanzania">
+                                <option value="United States of America">
+                                <option value="Uruguay">
+                                <option value="Uzbekistan">
+                                <option value="Venezuela">
+                                <option value="Viet Nam">
+                                <option value="Zambia">
+                                <option value="Zimbabwe">
+                            </datalist>
                         </div>
+                        
+                        
                         <div class="col-md-6">
                             <label for="Item" class="form-label">🌾 Crop Type</label>
-                            <input type="text" class="form-control" name="Item">
+                            <input list="itemOptions" class="form-control" name="Item" id="Item">
+                            <datalist id="itemOptions">
+                                <option value="Cassava">
+                                <option value="Maize">
+                                <option value="Plantains and others">
+                                <option value="Potatoes">
+                                <option value="Rice, paddy">
+                                <option value="Sorghum">
+                                <option value="Soybeans">
+                                <option value="Sweet potatoes">
+                                <option value="Wheat">
+                                <option value="Yams">
+                            </datalist>
                         </div>
+
+                        <!-- Profit Calculation Inputs -->
+                        <div class="col-md-6">
+                            <label for="area_hectares" class="form-label">📏 Cultivation Area (hectares)</label>
+                            <input type="number" step="0.01" class="form-control" name="area_hectares" id="area_hectares" placeholder="Enter cultivation area">
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <label for="market_price" class="form-label">💰 Market Price (₹/tonne)</label>
+                            <input type="number" step="0.01" class="form-control" name="market_price" id="market_price" placeholder="Enter market price">
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <label for="production_cost" class="form-label">💸 Production Cost (₹/hectare)</label>
+                            <input type="number" step="0.01" class="form-control" name="production_cost" id="production_cost" placeholder="Enter production cost">
+                        </div>
+                        
                         <div class="col-12">
-                            <button type="submit" class="btn btn-predict btn-lg mt-4 w-100">🚀 Predict</button>
+                            <button type="submit" class="btn btn-predict btn-lg mt-4 w-100"> Predict</button>
                         </div>
                     </div>
                 </form>
@@ -146,7 +376,15 @@
                 {% if prediction %}
                     <div class="prediction-box mt-4">
                         <h2>🔮 Predicted Yield:</h2>
-                        <h3 class="prediction-text">{{ prediction }}</h3>
+                        <h3 class="prediction-text">{{ prediction }} hg/ha</h3>
+                    </div>
+                {% endif %}
+
+                {% if profit %}
+                    <div class="profit-box mt-4">
+                        <h2>💰 Estimated Profit:</h2>
+                        <h3 class="profit-text">₹{{ profit }}</h3>
+                        <p>Based on {{ area_hectares }} hectares at ₹{{ market_price }}/tonne</p>
                     </div>
                 {% endif %}
             </div>
