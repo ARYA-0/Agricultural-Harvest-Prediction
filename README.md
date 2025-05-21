@@ -53,21 +53,6 @@ project/
 └── README.md
 ```
 
-## 🚀 How to Run (Assuming Flask Backend)
-
-1. Install Flask:
-
-   ```bash
-   pip install flask
-   ```
-
-2. Run the Flask app:
-
-   ```bash
-   python app.py
-   ```
-
-3. Open your browser and go to `http://127.0.0.1:5000/`
 
 ## 🧠 Future Enhancements
 
@@ -75,7 +60,3 @@ project/
 * Store prediction history
 * Integrate weather APIs for real-time suggestions
 * Allow user login and data tracking
-
----
-
-Let me know if you want the backend Flask code or deployment instructions.
